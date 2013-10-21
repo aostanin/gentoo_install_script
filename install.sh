@@ -2,9 +2,7 @@
 
 SCRIPT_PARAMS=$@
 
-#GENTOO_MIRROR=http://ftp.jaist.ac.jp/pub/Linux/Gentoo/
 GENTOO_MIRROR=http://ftp.iij.ad.jp/pub/linux/gentoo/
-GENTOO_STAGE3=releases/amd64/current-stage3/stage3-amd64-20130620.tar.bz2
 MOUNT_LOCATION=/mnt/gentoo
 TIMEZONE=Asia/Tokyo
 
@@ -97,10 +95,8 @@ install_gentoo_prep ()
 
     command cd $MOUNT_LOCATION
 
-    # latest-stage3-amd64.txt is currently BROKEN! Use hardcoded value instead.
-    #LATEST_STAGE3=$(curl --silent ${GENTOO_MIRROR}releases/amd64/autobuilds/latest-stage3-amd64.txt | awk 'END{print}')
-    #LATEST_STAGE3=${GENTOO_MIRROR}releases/amd64/autobuilds/${LATEST_STAGE3}
-    LATEST_STAGE3=${GENTOO_MIRROR}${GENTOO_STAGE3}
+    LATEST_STAGE3=$(curl --silent ${GENTOO_MIRROR}releases/amd64/autobuilds/latest-stage3-amd64.txt | awk 'END{print}')
+    LATEST_STAGE3=${GENTOO_MIRROR}releases/amd64/autobuilds/${LATEST_STAGE3}
 
     message Downloading stage 3 tarball from $LATEST_STAGE3
     command curl -O $LATEST_STAGE3
