@@ -212,20 +212,9 @@ EOF
     if $INSTALL_GRUB; then
         command emerge --quiet-build grub
 
-        KERNEL=$(ls /boot/kernel-*)
-        INITRD=$(ls /boot/initramfs-*)
-        cat << EOF > /boot/grub/grub.conf
-default 0
-timeout 10
-
-title Gentoo Linux
-root (hd0,0)
-kernel ${KERNEL} root=/dev/ram0 real_root=${ROOT_DISK_PARTITION}
-initrd ${INITRD}
-EOF
-
         grep -v rootfs /proc/mounts > /etc/mtab
-        command grub-install --no-floppy ${GRUB_DISK}
+        command grub2-install ${GRUB_DISK}
+        command grub2-mkconfig -o /boot/grub/grub.cfg
     fi
 
     message Done installing
